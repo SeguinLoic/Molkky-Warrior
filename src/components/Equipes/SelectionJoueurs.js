@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import * as firebase from "../Firebase/firebase";
 
@@ -10,12 +10,16 @@ export default function SelectionJoueurs({
 }) {
   const handleChange = (e) => {
     const value = e.target.id;
-    setSelectedPlayers([...selectedPlayers, value]);
-    if (selectedPlayers.indexOf(value) !== -1) {
-      console.log(e.target.value);
+    const indexSelected = selectedPlayers.indexOf(value);
+
+    if (indexSelected !== -1) {
+      selectedPlayers.splice(1, indexSelected);
+      setSelectedPlayers(selectedPlayers);
       return;
+    } else {
+      setSelectedPlayers([...selectedPlayers, value]);
     }
-    console.log("Coucou");
+
     const joueurPartie = joueurs.filter((joueur) => joueur.nom === value);
     const index = equipe.joueurs.indexOf(value);
     if (index === -1) {
@@ -29,13 +33,23 @@ export default function SelectionJoueurs({
     }
   };
 
+  useEffect(() => {
+    selectedPlayers.forEach(player => {
+      const lesJoueurs = document.querySelectorAll("." + player);
+      lesJoueurs.forEach(joueur => {
+        const parent = joueur.parentNode;
+        parent.classList.add("selected");
+      })
+    });
+  }, [selectedPlayers])
+
   return (
     <div className="liste-joueurs">
       <h2>Liste des joueurs</h2>
       {joueurs.map((joueur) => (
         <div key={joueur.id}>
-          <input type="checkbox" id={joueur.nom} onChange={handleChange} />
-          {joueur.nom}
+          <input type="checkbox" id={joueur.nom} className={joueur.nom} onChange={handleChange} />
+          <span>{joueur.nom}</span>
         </div>
       ))}
     </div>

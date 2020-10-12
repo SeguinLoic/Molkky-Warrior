@@ -75,3 +75,16 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
+.creation-equipe span {
+  width: 100%;
+}
+
+div.selected {
+  opacity: 0.2;
+}
+div.selected input {
+  pointer-events: none;
+}
+div.selected input:checked {
+  pointer-events: auto;
+}
