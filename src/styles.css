@@ -1,0 +1,77 @@
+body {
+  margin: 0px;
+}
+#root {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  border: 1px solid red;
+  width: 600px;
+  padding: 25px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+/* --- FORM CREATION JOUEURS --- */
+#form-joueur_form {
+  display: inline-flex;
+  flex-direction: column;
+}
+.form-joueur_container-input {
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 10px;
+}
+.form-joueur_label {
+  padding-right: 10px;
+}
+
+/* --- LISTE JOUEURS --- */
+
+/* LISTE */
+.liste-joueurs_legendes {
+  width: 100%;
+  display: flex;
+  background-color: #f2f2f2;
+}
+.liste-joueurs_legendes span {
+  cursor: pointer;
+  width: 33.3%;
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* JOUEURS */
+.joueur {
+  display: flex;
+}
+.joueur:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.joueur span {
+  display: flex;
+  width: 33.3%;
+  padding: 9px 5px;
+  box-sizing: border-box;
+}
+
+/* CREATION EQUIPES */
+.creation-equipe .liste-joueurs {
+  border: 1px solid blue;
+  width: calc(50% - 10px);
+  box-sizing: border-box;
+  margin: 5px;
+}
+.creation-equipe > button {
+  width: 100%;
+}
+.creation-equipe {
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+}
