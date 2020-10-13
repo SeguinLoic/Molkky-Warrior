@@ -69,14 +69,8 @@ export default function App() {
       <AuthProvider>
       <h1>Molkky Warrior</h1>
 
-      { isLogged ? (
-        <>
-          <CreationJoueur joueurs={joueurs} setJoueurs={setJoueurs} />
-          <Logout setIsLogged={setIsLogged} />
-        </>
-      ) : <Login setIsLogged={setIsLogged} />}
-
       { match ? (
+        
         <Match
           equipes={equipes}
           setEquipes={setEquipes}
@@ -85,7 +79,9 @@ export default function App() {
           setJoueurs={setJoueurs}
           setVictoire={setVictoire}
         />
+
       ) : (
+
         <>
           <CreationEquipe
             joueurs={joueurs}
@@ -99,7 +95,17 @@ export default function App() {
             setFiltre={setFiltre}
             handleFiltered={handleFiltered}
           />
+
+
+          { isLogged ? (
+            <>
+              <CreationJoueur joueurs={joueurs} setJoueurs={setJoueurs} />
+              <Logout setIsLogged={setIsLogged} />
+            </>
+          ) : <Login setIsLogged={setIsLogged} />}
+
         </>
+
       )}
       </AuthProvider>
     </div>

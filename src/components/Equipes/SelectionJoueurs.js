@@ -8,40 +8,26 @@ export default function SelectionJoueurs({
   selectedPlayers,
   setSelectedPlayers
 }) {
+
   const handleChange = (e) => {
     const value = e.target.id;
     const indexSelected = selectedPlayers.indexOf(value);
-
-    if (indexSelected !== -1) {
-      selectedPlayers.splice(1, indexSelected);
-      setSelectedPlayers(selectedPlayers);
-      return;
-    } else {
-      setSelectedPlayers([...selectedPlayers, value]);
-    }
-
     const joueurPartie = joueurs.filter((joueur) => joueur.nom === value);
     const index = equipe.joueurs.indexOf(value);
+
     if (index === -1) {
       equipe.joueurs.push(value);
+      setSelectedPlayers([...selectedPlayers, value]);
       joueurPartie[0].parties = Number(joueurPartie[0].parties) + 1;
       firebase.getPlayer(joueurPartie[0].id, "+");
     } else {
       equipe.joueurs.splice(index, 1);
+      selectedPlayers.splice(1, indexSelected);
+      setSelectedPlayers(selectedPlayers);
       joueurPartie[0].parties = Number(joueurPartie[0].parties) - 1;
       firebase.getPlayer(joueurPartie[0].id, "-");
     }
   };
-
-  useEffect(() => {
-    selectedPlayers.forEach(player => {
-      const lesJoueurs = document.querySelectorAll("." + player);
-      lesJoueurs.forEach(joueur => {
-        const parent = joueur.parentNode;
-        parent.classList.add("selected");
-      })
-    });
-  }, [selectedPlayers])
 
   return (
     <div className="liste-joueurs">
