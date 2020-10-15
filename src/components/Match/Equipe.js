@@ -61,7 +61,7 @@ export default function Equipe({ equipe, equipes, setEquipes, index, setVictoire
 
   return (
     <div className="equipe">
-      <span>{score}</span>
+      <span className="score">{score}</span>
       {tour ? (
         <form onSubmit={handlePoints}>
           <input type="number" max="12" onChange={handleChange} />

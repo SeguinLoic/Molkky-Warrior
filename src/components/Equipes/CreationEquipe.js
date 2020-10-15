@@ -39,8 +39,15 @@ export default function CreationEquipe({
 
   return (
     <div className="creation-equipe">
+      <div className="btn-creation-equipe">
       <button onClick={handleCreateTeam}>Ajouter une équipe</button>
-      <span>Joueurs selectionnés : {selectedPlayers}</span>
+      {nbEquipes >= 2 ? (
+        <button onClick={handleGame}>Lancer la partie</button>
+      ) : (
+        ""
+      )}
+      </div>
+      <div className="selection-joueurs">
       {nouvellesEquipes.map((equipe) => (
         <SelectionJoueurs
           equipe={equipe}
@@ -50,11 +57,7 @@ export default function CreationEquipe({
           setSelectedPlayers={setSelectedPlayers}
         />
       ))}
-      {nbEquipes >= 2 ? (
-        <button onClick={handleGame}>Lancer la partie</button>
-      ) : (
-        ""
-      )}
+      </div>
     </div>
   );
 }

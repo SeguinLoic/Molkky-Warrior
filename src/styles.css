@@ -61,22 +61,37 @@ body {
 }
 
 /* CREATION EQUIPES */
+.creation-equipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-radius: 5px;
+}
+.btn-creation-equipe > button {
+  padding: 10px 25px;
+  margin: 0px 5px;
+}
+.selection-joueurs {
+  display: flex;
+  width: 100%;
+}
 .creation-equipe .liste-joueurs {
-  border: 1px solid blue;
   width: calc(50% - 10px);
   box-sizing: border-box;
   margin: 5px;
+  padding: 10px;
 }
-.creation-equipe > button {
-  width: 100%;
+
+.liste-joueurs h2 {
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
-.creation-equipe {
-  border: 1px solid red;
+
+.liste-joeurs_joueur {
   display: flex;
-  flex-wrap: wrap;
-}
-.creation-equipe span {
-  width: 100%;
 }
 
 div.selected {
@@ -87,4 +102,60 @@ div.selected input {
 }
 div.selected input:checked {
   pointer-events: auto;
+}
+
+
+/* MATCH */ 
+.match {
+  display: flex;
+}
+.match .equipe {
+  width: 50%;
+  border: 1px solid red;
+  padding: 15px;
+}
+.match .equipe .score {
+  font-size: 5em;
+  font-weight: 700;
+  color: #5d5d5d;
+  display: flex;
+  justify-content: center;
+}
+
+/* ----------------------------- 600px ------------------------ */
+@media screen and (max-width: 600px) {
+  .App {
+    width: 100%;
+  }
+  .selection-joueurs {
+    flex-direction: column;
+  }
+  .btn-creation-equipe > button {
+    padding: 10px 25px;
+    margin: 5px;
+  }
+  .creation-equipe .liste-joueurs h2 {
+    text-align: left;
+    line-height: 1em;
+    margin-bottom: 10px;
+  }
+  .creation-equipe .liste-joueurs {
+      width: 100%;
+      box-sizing: border-box;
+      margin: 5px 0px;
+      padding: 5px 0px;
+  }
+}
+
+/* ----------------------------- 500px ------------------------ */
+@media screen and (max-width: 500px) {
+  .match {
+    display: flex;
+    flex-direction: column;
+  }
+  .match .equipe {
+    width: 100%;
+    border: 1px solid red;
+    box-sizing: border-box;
+}
 }
