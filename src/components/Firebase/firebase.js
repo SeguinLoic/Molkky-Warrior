@@ -20,11 +20,11 @@ firebase.analytics();
 
 export const db = firebase.firestore();
 
-// ADD PLAYER TO FIREBASE
-export const addJoueur = (infoJoueur) => {
+export const addPlayer = (dataPlayer, players, setPlayers) => {
+  setPlayers([...players, dataPlayer]);
   return db
     .collection("Joueurs")
-    .add(infoJoueur)
+    .add(dataPlayer)
     .then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
     })
@@ -33,37 +33,28 @@ export const addJoueur = (infoJoueur) => {
     });
 };
 
-// DISPLAY PLAYERS FROM FIREBASE
-export const fetchData = async (setJoueurs) => {
-  const mesJoueurs = [];
+export const getPlayers = async (setPlayers) => {
+  const players = [];
   const collection = await db.collection("Joueurs").get();
   collection.forEach(function (doc) {
     const data = doc.data();
     const id = doc.id;
-    mesJoueurs.push({ ...data, id });
+    players.push({ ...data, id });
   });
-  setJoueurs(mesJoueurs);
+  setPlayers(players);
 };
 
-// ADD 1 POINT TO "PARTIES" WHEN PLAYER IS SELECTED
-export const getPlayer = async (id, action) => {
-  const lejoueur = await db.collection("Joueurs").doc(id);
-  if (action === "+") {
-    lejoueur.update({
-      parties: firebase.firestore.FieldValue.increment(1)
-    });
-  } else {
-    lejoueur.update({
-      parties: firebase.firestore.FieldValue.increment(-1)
-    });
-  }
+export const incrementNumberGames = async (id) => {
+  const player = await db.collection("Joueurs").doc(id);
+  player.update({
+    numberGames: firebase.firestore.FieldValue.increment(1)
+  });
 };
 
-// ADD 1 POINT TO "VICTOIRES" WHEN PLAYER IS WIN
-export const addVictory = async (id) => {
-  const lejoueur = await db.collection("Joueurs").doc(id);
-  lejoueur.update({
-    victoires: firebase.firestore.FieldValue.increment(1)
+export const incrementVictoryPoints = async (id) => {
+  const player = await db.collection("Joueurs").doc(id);
+  player.update({
+    numberVictories: firebase.firestore.FieldValue.increment(1)
   });
 };
 

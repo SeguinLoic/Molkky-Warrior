@@ -1,112 +1,58 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 
 import * as firebase from "./components/Firebase/firebase";
-
-import CreationJoueur from "./components/Joueurs/CreationJoueur";
-import ListeJoueurs from "./components/Joueurs/ListeJoueurs";
-import CreationEquipe from "./components/Equipes/CreationEquipe";
-import Match from "./components/Match/Match";
-import Login from "./components/Firebase/Login"
-import Logout from "./components/Firebase/Logout"
-
 import { AuthProvider } from "./components/Firebase/Auth";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+
+import CreatePlayer from "./components/Players/CreatePlayer/CreatePlayer";
+import PlayersList from "./components/Players/PlayersList";
+import BoardGame from "./components/Games/BoardGame"
 
 export default function App() {
-  const [joueurs, setJoueurs] = useState([]);
-  const [equipes, setEquipes] = useState([]);
-  const [match, setMatch] = useState(false);
-  const [victoire, setVictoire] = useState();
+  const [players, setPlayers] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
-  const [filtre, setFiltre] = useState();
+  const [isGame, setIsGame] = useState(false);
 
   useEffect(() => {
-    firebase.fetchData(setJoueurs);
+    firebase.getPlayers(setPlayers);
   }, []);
-
-  useEffect(() => {
-    if (victoire) {
-      victoire.forEach((joueur) => {
-        joueurs.forEach((personne, index) => {
-          if (personne.nom === joueur) {
-            firebase.addVictory(personne.id);
-            let newResultats = [...joueurs];
-            newResultats[index].victoires =
-              Number(newResultats[index].victoires) + 1;
-            setJoueurs(newResultats);
-          }
-        });
-      });
-      setEquipes([]);
-      setMatch(false);
-      setVictoire();
-    }
-  }, [victoire]);
-
-  const handleFiltered = (e) => {
-    const filtre = e.target.id;
-    if (filtre === "nom") {
-      setJoueurs(
-        joueurs.sort((a, b) => (a.nom > b.nom ? 1 : b.nom > a.nom ? -1 : 0))
-      );
-    } else if (filtre === "parties") {
-      setJoueurs(
-        joueurs.sort((a, b) =>
-          a.parties < b.parties ? 1 : b.parties < a.parties ? -1 : 0
-        )
-      );
-    } else if (filtre === "victoires") {
-      setJoueurs(
-        joueurs.sort((a, b) =>
-          a.victoires < b.victoires ? 1 : b.victoires < a.victoires ? -1 : 0
-        )
-      );
-    }
-  };
 
   return (
     <div className="App">
-      <AuthProvider>
+
       <h1>Molkky Warrior</h1>
 
-      { match ? (
-        
-        <Match
-          equipes={equipes}
-          setEquipes={setEquipes}
-          joueurs={joueurs}
-          setMatch={setMatch}
-          setJoueurs={setJoueurs}
-          setVictoire={setVictoire}
-        />
+      <AuthProvider>
+        <Router>
 
-      ) : (
+          <Link to="/">Home</Link>
+          <Link to="/BoardGame" onClick={() => setIsGame(true)}>Play a game</Link>
+          <Link to="/CreatePlayer">Create player</Link>
 
-        <>
-          <CreationEquipe
-            joueurs={joueurs}
-            setEquipes={setEquipes}
-            match={match}
-            setMatch={setMatch}
-          />
-          <ListeJoueurs
-            joueurs={joueurs}
-            setJoueurs={setJoueurs}
-            setFiltre={setFiltre}
-            handleFiltered={handleFiltered}
-          />
+            <Route path="/" exact>
+              <PlayersList players={players} />
+            </Route>
+            <Route path="/BoardGame" exact>
+              <BoardGame 
+                isLogged={isLogged} 
+                setIsLogged={setIsLogged} 
+                players={players} 
+                setPlayers={setPlayers} 
+                setIsGame={setIsGame} 
+                isGame={isGame}
+              />
+            </Route>
+            <Route path="/CreatePlayer" exact>
+              <CreatePlayer 
+                isLogged={isLogged} 
+                setIsLogged={setIsLogged} 
+                players={players} 
+                setPlayers={setPlayers} 
+              />
+            </Route>
+        </Router>
 
-
-          { isLogged ? (
-            <>
-              <CreationJoueur joueurs={joueurs} setJoueurs={setJoueurs} />
-              <Logout setIsLogged={setIsLogged} />
-            </>
-          ) : <Login setIsLogged={setIsLogged} />}
-
-        </>
-
-      )}
       </AuthProvider>
     </div>
   );
