@@ -3,7 +3,7 @@ import "./styles.css";
 
 import * as firebase from "./components/Firebase/firebase";
 import { AuthProvider } from "./components/Firebase/Auth";
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {HashRouter as Router, Route, Link} from "react-router-dom";
 
 import CreatePlayer from "./components/Players/CreatePlayer/CreatePlayer";
 import PlayersList from "./components/Players/PlayersList";
