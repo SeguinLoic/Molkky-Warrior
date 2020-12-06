@@ -1,0 +1,32 @@
+form#login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.rowForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.rowForm span {
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    padding-left: 4px;
+}
+.rowForm input {
+    padding: 8px 10px;
+    border-radius: 0px !important;
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+}
+form#login button {
+    padding: 11px 15px;
+    font-weight: 700;
+    background-color: #b6764d;
+    color: #fff;
+    border: none !important;
+    border-radius: 5px;
+    line-height: 1em;
+}

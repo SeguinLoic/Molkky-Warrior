@@ -1,6 +1,7 @@
 import React, {useCallback, useContext} from "react"
 import { AuthContext } from "./Auth";
 import firebase from "./firebase"
+import "./Login.css";
 
 const Login = ({ setIsLogged }) => {
     const handleLogin = useCallback(
@@ -22,13 +23,17 @@ const Login = ({ setIsLogged }) => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleLogin}>
-                <input type="email" placeholder="email" id="email"></input>
+        <form onSubmit={handleLogin} id="login">
+            <div className="rowForm">
+                <span>E-mail</span>
+                <input type="email" id="email"></input>
+            </div>
+            <div className="rowForm">
+                <span>Password</span>
                 <input type="password" id="password"></input>
-                <button>Se connecter</button>
-            </form>
-      </div>
+            </div>
+            <button>Connexion</button>
+        </form>
     )
 };
 

@@ -27,11 +27,15 @@ export default function CreatePlayer({ players, setPlayers, isLogged, setIsLogge
 
   return (
     <div className="form-joueur">
-      <h2>Création du joueur</h2>
+      
+      {/*<h2>Création du joueur</h2>*/}
 
       {
         !isLogged 
-        ? <Login setIsLogged={setIsLogged} />
+        ? <div className="connexion">
+            <span className="titleConnexion">Avant de créer un joueur, veuillez vous connecter</span>
+            <Login setIsLogged={setIsLogged} />
+          </div>
         : <>
           <Logout setIsLogged={setIsLogged} />
           <form onSubmit={handleSubmit} id="form-joueur_form">

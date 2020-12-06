@@ -15,7 +15,10 @@ export default function BoardGame({ players, setPlayers, setIsGame, isLogged, se
         <div className="boardgame">
           {
             !isLogged 
-            ? <Login setIsLogged={setIsLogged} />
+            ? <div className="connexion">
+                <span className="titleConnexion">Avant de commencer une partie, veuillez vous connecter</span>
+                <Login setIsLogged={setIsLogged} />
+              </div>
             : <>
                 <Logout setIsLogged={setIsLogged} />
                 {

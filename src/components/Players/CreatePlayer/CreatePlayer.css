@@ -1,9 +1,20 @@
-.form-joueur {
-    border: 1px solid red;
-    background-color: #eaeaea;
-    padding: 25px;
-    box-sizing: border-box;
+
+.connexion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px;
+    background-color: #deebf159;
+    border-radius: 5px;
 }
+.connexion .titleConnexion {
+    font-size: 1.1em;
+    font-weight: 700;
+    width: 250px;
+    margin-bottom: 20px;
+    color: #636363;
+}
+
 .form-joueur h2 {
     margin-top: 0px;
 }
